@@ -6,75 +6,89 @@ source: https://sketchfab.com/3d-models/anya-forger-spy-x-family-470b41ca5e074f1
 title: Anya Forger (Spy x Family)
 */
 
-import * as THREE from "three";
-import React, { useRef } from "react";
+import * as THREE from 'three'
+import React, { useRef } from 'react'
 
-import { useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
-import { GLTF } from "three-stdlib";
+import { useFrame } from '@react-three/fiber'
+import { useGLTF } from '@react-three/drei'
+import { GLTF } from 'three-stdlib'
 
 type GLTFResult = GLTF & {
-  nodes: {
-    Object_7: THREE.SkinnedMesh;
-    Object_8: THREE.SkinnedMesh;
-    Object_10: THREE.SkinnedMesh;
-    Object_12: THREE.SkinnedMesh;
-    Object_13: THREE.SkinnedMesh;
-    GLTF_created_0_rootJoint: THREE.Bone;
-  };
-  materials: {
-    Main: THREE.MeshBasicMaterial;
-    Outline: THREE.MeshBasicMaterial;
-    Hair: THREE.MeshBasicMaterial;
-  };
-};
-
-export function AnyaModel({ ...props }: JSX.IntrinsicElements["group"]) {
-  // Passos
-  // Baixar modelo no formato .gltf
-  // utilizar o gltf-pipeline para optimizar o modelo
-  // Usar o helper gltfjsx para implementar(corretamente) o modelo em um componente react
-  const group = useRef<THREE.Group>();
-  const { nodes, materials } = useGLTF(
-    "/models/anyaModelDraco.gltf"
-  ) as GLTFResult;
-
-  // useFrame(state => group.current.position.set())
-
-  return (
-    <group ref={group} {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group rotation={[Math.PI / 2, 0, 0]} scale={3}>
-          <primitive object={nodes.GLTF_created_0_rootJoint} />
-          <skinnedMesh
-            geometry={nodes.Object_7.geometry}
-            material={materials.Main}
-            skeleton={nodes.Object_7.skeleton}
-          />
-          <skinnedMesh
-            geometry={nodes.Object_8.geometry}
-            material={materials.Outline}
-            skeleton={nodes.Object_8.skeleton}
-          />
-          <skinnedMesh
-            geometry={nodes.Object_10.geometry}
-            material={materials.Main}
-            skeleton={nodes.Object_10.skeleton}
-          />
-          <skinnedMesh
-            geometry={nodes.Object_12.geometry}
-            material={materials.Hair}
-            skeleton={nodes.Object_12.skeleton}
-          />
-          <skinnedMesh
-            geometry={nodes.Object_13.geometry}
-            material={materials.Outline}
-            skeleton={nodes.Object_13.skeleton}
-          />
-        </group>
-      </group>
-    </group>
-  );
+    nodes: {
+        Object_7: THREE.SkinnedMesh
+        Object_8: THREE.SkinnedMesh
+        Object_10: THREE.SkinnedMesh
+        Object_12: THREE.SkinnedMesh
+        Object_13: THREE.SkinnedMesh
+        GLTF_created_0_rootJoint: THREE.Bone
+    }
+    materials: {
+        Main: THREE.MeshBasicMaterial
+        Outline: THREE.MeshBasicMaterial
+        Hair: THREE.MeshBasicMaterial
+    }
 }
 
-useGLTF.preload("/models/anyaModelDraco.gltf");
+export function AnyaModel({ ...props }: JSX.IntrinsicElements['group']) {
+    // Passos
+    // Baixar modelo no formato .gltf
+    // utilizar o gltf-pipeline para optimizar o modelo
+    // Usar o helper gltfjsx para implementar(corretamente) o modelo em um componente react
+    const group = useRef<THREE.Group>()
+    const { nodes, materials } = useGLTF(
+        '/models/anyaModelDraco.gltf'
+    ) as GLTFResult
+
+    useFrame(state => {
+        const t = state.clock.getElapsedTime()
+
+        group.current.position.y = (Math.sin(t / 2) + 1.2) * 0.05
+    })
+
+    return (
+        <group ref={group} {...props} dispose={null}>
+            <group rotation={[-Math.PI / 2, 0, 0]}>
+                <group rotation={[Math.PI / 2, 0, 0]} scale={3}>
+                    <primitive object={nodes.GLTF_created_0_rootJoint} />
+                    <skinnedMesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Object_7.geometry}
+                        material={materials.Main}
+                        skeleton={nodes.Object_7.skeleton}
+                    />
+                    <skinnedMesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Object_8.geometry}
+                        material={materials.Outline}
+                        skeleton={nodes.Object_8.skeleton}
+                    />
+                    <skinnedMesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Object_10.geometry}
+                        material={materials.Main}
+                        skeleton={nodes.Object_10.skeleton}
+                    />
+                    <skinnedMesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Object_12.geometry}
+                        material={materials.Hair}
+                        skeleton={nodes.Object_12.skeleton}
+                    />
+                    <skinnedMesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.Object_13.geometry}
+                        material={materials.Outline}
+                        skeleton={nodes.Object_13.skeleton}
+                    />
+                </group>
+            </group>
+        </group>
+    )
+}
+
+useGLTF.preload('/models/anyaModelDraco.gltf')

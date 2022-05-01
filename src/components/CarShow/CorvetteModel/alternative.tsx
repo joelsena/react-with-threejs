@@ -6,10 +6,8 @@ source: https://sketchfab.com/3d-models/lucifers-corvette-1960-chevrolet-corvett
 title: Lucifer's Corvette - 1960 Chevrolet Corvette C1
 */
 
-import * as THREE from 'three'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { GLTF } from 'three-stdlib'
 import { Mesh } from 'three'
 import { useFrame } from '@react-three/fiber'
 
