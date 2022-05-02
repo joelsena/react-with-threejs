@@ -39,48 +39,46 @@ export function AnyaModel({ ...props }: JSX.IntrinsicElements['group']) {
         '/models/anyaModelDraco.gltf'
     ) as GLTFResult
 
-    useFrame(state => {
-        const t = state.clock.getElapsedTime()
+    // useFrame(state => {
+    //     const t = state.clock.getElapsedTime()
 
-        group.current.position.y = (Math.sin(t / 2) + 1.2) * 0.05
-    })
+    //     group.current.position.y = (Math.sin(t) + 1.2) * 0.05
+    // })
 
     return (
         <group ref={group} {...props} dispose={null}>
             <group rotation={[-Math.PI / 2, 0, 0]}>
                 <group rotation={[Math.PI / 2, 0, 0]} scale={3}>
-                    <primitive object={nodes.GLTF_created_0_rootJoint} />
+                    <primitive
+                        castShadow
+                        object={nodes.GLTF_created_0_rootJoint}
+                    />
                     <skinnedMesh
                         castShadow
-                        receiveShadow
                         geometry={nodes.Object_7.geometry}
                         material={materials.Main}
                         skeleton={nodes.Object_7.skeleton}
                     />
                     <skinnedMesh
                         castShadow
-                        receiveShadow
                         geometry={nodes.Object_8.geometry}
                         material={materials.Outline}
                         skeleton={nodes.Object_8.skeleton}
                     />
                     <skinnedMesh
                         castShadow
-                        receiveShadow
                         geometry={nodes.Object_10.geometry}
                         material={materials.Main}
                         skeleton={nodes.Object_10.skeleton}
                     />
                     <skinnedMesh
                         castShadow
-                        receiveShadow
                         geometry={nodes.Object_12.geometry}
                         material={materials.Hair}
                         skeleton={nodes.Object_12.skeleton}
                     />
                     <skinnedMesh
                         castShadow
-                        receiveShadow
                         geometry={nodes.Object_13.geometry}
                         material={materials.Outline}
                         skeleton={nodes.Object_13.skeleton}

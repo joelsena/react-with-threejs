@@ -1,7 +1,6 @@
 import {
     OrbitControls,
     PerspectiveCamera,
-    Sparkles,
     Stars,
     SpotLight
 } from '@react-three/drei'
@@ -16,6 +15,7 @@ import LanternModel from '../components/LanternModel'
 import MasterChiefModel from '../components/MasterChiefModel'
 
 import styles from '../styles/car.module.css'
+import { AnyaModel } from '../components/AnyaModel'
 
 function TestScene() {
     return (
@@ -31,20 +31,13 @@ function TestScene() {
             />
             <OrbitControls maxPolarAngle={1.45} />
 
-            <PerspectiveCamera makeDefault fov={60} position={[2, 2, 4]} />
+            <PerspectiveCamera makeDefault fov={60} position={[1.5, 2, 4]} />
 
             <color args={[0, 0, 0]} attach="background" />
 
             <ambientLight intensity={1} />
             <Moon position={[4, 2, -24]} />
             <pointLight intensity={0.05} position={[4, 2, -24]} castShadow />
-
-            {/* <pointLight
-                intensity={0.5}
-                distance={8}
-                position={[0, 4, 0]}
-                castShadow
-            /> */}
 
             <LanternModel position={[-3, 0, 0]} />
 
@@ -63,24 +56,14 @@ function TestScene() {
             <Curbs position={[-2, -0.15, -5]} />
             <Curbs position={[2, -0.15, -5]} />
 
-            {/* <AnyaModel scale={[0.2, 0.2, 0.2]} position={[0, 0, 2]} /> */}
+            <AnyaModel scale={[0.2, 0.2, 0.2]} position={[1, 0, 0]} />
             <MasterChiefModel
                 scale={[
                     1 / Math.pow(10, 2),
                     1 / Math.pow(10, 2),
                     1 / Math.pow(10, 2)
                 ]}
-                // position={[0, 0, 1]}
             />
-            {/* <AlternativeMaster
-                scale={[
-                    1 / Math.pow(10, 2),
-                    1 / Math.pow(10, 2),
-                    1 / Math.pow(10, 2)
-                ]}
-                position={[0, 0, 2]}
-            /> */}
-
             <EnviromentGround />
         </>
     )

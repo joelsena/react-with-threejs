@@ -41,7 +41,7 @@ export default function MasterChiefModel({
     return (
         <group
             ref={group}
-            onClick={() => actions['mixamo.com'].play()}
+            onClick={() => actions['mixamo.com'].fadeIn(3).play()}
             {...props}
             dispose={null}
         >

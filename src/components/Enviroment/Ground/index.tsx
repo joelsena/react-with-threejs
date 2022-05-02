@@ -3,8 +3,9 @@ import { MeshReflectorMaterial } from '@react-three/drei'
 import { useEffect } from 'react'
 import { LinearEncoding, RepeatWrapping, Vector2 } from 'three'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
+import { Grasses } from '../../GrassAltModel/grasses'
 
-export function EnviromentGround() {
+function Road() {
     const [normal, roughness, albedo] = useLoader(TextureLoader, [
         '/textures/terrain-normal.jpg',
         '/textures/terrain-roughness.jpg',
@@ -54,5 +55,37 @@ export function EnviromentGround() {
 
             {/* <meshLambertMaterial map={albedo} color={[0.5, 0.5, 0.5]} /> */}
         </mesh>
+    )
+}
+
+function GrassGround(props: JSX.IntrinsicElements['group']) {
+    const grassMap = useLoader(TextureLoader, '/textures/grass.jpg')
+
+    useEffect(() => {
+        grassMap.wrapS = RepeatWrapping
+        grassMap.wrapT = RepeatWrapping
+        grassMap.repeat.set(1, 1)
+
+        grassMap.encoding = LinearEncoding
+    }, [grassMap])
+
+    return (
+        <group {...props}>
+            <mesh rotation-x={-Math.PI / 2}>
+                <planeBufferGeometry args={[2, 8]} />
+                <meshLambertMaterial map={grassMap} color={[0.1, 0.1, 0.1]} />
+            </mesh>
+            <Grasses />
+        </group>
+    )
+}
+
+export function EnviromentGround(props: JSX.IntrinsicElements['group']) {
+    return (
+        <group {...props}>
+            <GrassGround position={[-3.15, 0.005, 0]} />
+            <Road />
+            <GrassGround position={[3.15, 0.005, 0]} />
+        </group>
     )
 }
