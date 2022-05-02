@@ -5,35 +5,42 @@ import { LinearEncoding, RepeatWrapping, Vector2 } from 'three'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 
 export function EnviromentGround() {
-    const [normal, roughness] = useLoader(TextureLoader, [
-        '/textures/wood_cabinet.jpg',
-        '/textures/wood_cabinet_rough.jpg'
+    const [normal, roughness, albedo] = useLoader(TextureLoader, [
+        '/textures/terrain-normal.jpg',
+        '/textures/terrain-roughness.jpg',
+        '/textures/road_albedo.jpg'
     ])
 
     useEffect(() => {
-        ;[normal, roughness].forEach(t => {
+        ;[normal, roughness, albedo].forEach(t => {
             t.wrapS = RepeatWrapping
             t.wrapT = RepeatWrapping
-            t.repeat.set(5, 5)
+            t.repeat.set(1, 1)
 
             t.encoding = LinearEncoding
         })
-    }, [normal, roughness])
+    }, [normal, roughness, albedo])
 
     return (
-        <mesh rotation-x={-Math.PI * 0.5}>
-            <planeGeometry args={[8, 10]} />
+        <mesh
+            // rotation-y={-Math.PI / 2}
+            rotation-x={-Math.PI / 2}
+            rotation-z={-Math.PI / 2}
+            receiveShadow
+        >
+            <planeGeometry args={[8, 8]} />
             <MeshReflectorMaterial
                 normalMap={normal}
-                normalScale={new Vector2(0.15, 0.15)}
+                normalScale={new Vector2(0.5, 0.5)}
                 roughnessMap={roughness}
                 envMapIntensity={0}
                 dithering
-                color="#351900"
-                roughness={0.7}
-                blur={[1000, 400]}
-                mixBlur={30}
-                mixStrength={80}
+                map={albedo}
+                color={[0.05, 0.05, 0.05]}
+                roughness={0.5}
+                blur={[200, 400]}
+                mixBlur={20}
+                mixStrength={50}
                 mixContrast={1}
                 resolution={1024}
                 depthScale={0.01}
@@ -45,12 +52,7 @@ export function EnviromentGround() {
                 mirror={0}
             />
 
-            {/* <meshLambertMaterial
-                map={normal}
-                // scale={new Vector2(0.15, 0.15)}
-                // roughnessMap={roughness}
-                attach="material"
-            /> */}
+            {/* <meshLambertMaterial map={albedo} color={[0.5, 0.5, 0.5]} /> */}
         </mesh>
     )
 }
