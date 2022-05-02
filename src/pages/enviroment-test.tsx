@@ -12,7 +12,6 @@ import { Suspense } from 'react'
 import { Curbs } from '../components/Enviroment/Curb'
 import { EnviromentGround } from '../components/Enviroment/Ground'
 import { Moon } from '../components/Enviroment/Moon'
-import GrassModel from '../components/GrassModel/GrassModel'
 import LanternModel from '../components/LanternModel'
 import MasterChiefModel from '../components/MasterChiefModel'
 
@@ -63,7 +62,6 @@ function TestScene() {
 
             <Curbs position={[-2, -0.15, -5]} />
             <Curbs position={[2, -0.15, -5]} />
-            <GrassModel position={[1, 1, 1]} />
 
             {/* <AnyaModel scale={[0.2, 0.2, 0.2]} position={[0, 0, 2]} /> */}
             <MasterChiefModel
